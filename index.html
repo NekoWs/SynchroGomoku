@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Synchro Gomoku</title>
+    <link rel="stylesheet" href="css/main.css"/>
+    <meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+<div class="index-box">
+    <div class="room-info">
+        <span id="room-id"></span>
+        <button class="btn join-btn" id="join">+</button>
+        <button class="btn restart" id="reset"><?xml version="1.0" encoding="UTF-8"?>
+            <svg width="15" height="15" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M42 8V24" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 24L6 40" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M42 24C42 14.0589 33.9411 6 24 6C18.9145 6 14.3216 8.10896 11.0481 11.5M6 24C6 33.9411 14.0589 42 24 42C28.8556 42 33.2622 40.0774 36.5 36.9519"
+                      stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button class="btn replay" id="replay"><?xml version="1.0" encoding="UTF-8"?>
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg width="15" height="15" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 24V11.8756L25.5 17.9378L36 24L25.5 30.0622L15 36.1244V24Z" fill="none" stroke="#fff"
+                      stroke-width="4" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+    <div class="strike-box">
+        <span id="strike-count">0</span>
+    </div>
+    <div class="players-box">
+        <div class="player p1">
+            <div class="name-box">
+                <span class="name" id="p1-name"></span>
+            </div>
+            <span class="status" id="p1-status"></span>
+            <div class="pass-box" id="p1-pass">0</div>
+        </div>
+        <div class="player p2">
+            <div class="name-box">
+                <span class="name" id="p2-name"></span>
+            </div>
+            <span class="status" id="p2-status"></span>
+            <div class="pass-box" id="p2-pass">0</div>
+        </div>
+    </div>
+    <button id="pass-btn" class="btn pass-btn">PASS</button>
+    <div class="chess-main" id="chess-main">
+    </div>
+</div>
+<div class="alert window" id="alert">
+    <div class="main">
+        <button class="close-btn"></button>
+        <span class="title"></span>
+        <span class="content"></span>
+        <label class="input-box">
+            <input class="input"/>
+            <button class="btn submit-btn">></button>
+        </label>
+        <label class="button-box">
+            <button class="btn yes-btn">YES</button>
+            <button class="btn no-btn">NO</button>
+        </label>
+    </div>
+</div>
+<script type="text/javascript" src="js/ui.js"></script>
+<script type="text/javascript" src="js/service.js"></script>
+<script type="text/javascript" src="js/chess.js"></script>
+</body>
+</html>

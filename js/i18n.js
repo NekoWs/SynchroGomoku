@@ -18,8 +18,6 @@ let languages = {
         "leave-message": "注意！你是否想离开房间？",
         "leaved-room": "已离开房间",
         "player-leaved": "玩家 {0} 离开了房间！",
-        "another-placed": "另一位玩家已经落子",
-        "chess-extend": "棋盘已拓展",
         "notice": "提示",
         "draw": "平局",
         "game-over": "游戏结束",
@@ -29,6 +27,33 @@ let languages = {
         "error": "错误",
         "no-player": "无玩家",
         "invite-title": "邀请你的伙伴扫描下方二维码或复制下列链接来加入游戏！"
+    },
+    "en-US": {
+        "welcome": "Welcome",
+        "input-name": "Please input your nick: ",
+        "reset": "Reset",
+        "reset-message": "Attention! Do you want to reset the room?",
+        "now-in": "Current room: ",
+        "strike-before": "Strike count: ",
+        "strike-after": "/10",
+        "join-title": "Another room?",
+        "join-message": "Please input the room id: ",
+        "disconnected": "Disconnected",
+        "disconnected-message": "Disconnected from server...",
+        "another-login": "Another login.",
+        "warn": "Warn",
+        "leave-message": "Attention! Do you want to leave the room?",
+        "leaved-room": "Leaved the room.",
+        "player-leaved": "Player {0} leaved.",
+        "notice": "Notice",
+        "draw": "Draw",
+        "game-over": "Game Over",
+        "win": "Game Over, {0} win!",
+        "room-rested": "This room has been reset",
+        "cannot-connect": "Cannot connect to server!",
+        "error": "Error",
+        "no-player": "No Player",
+        "invite-title": "Invite your friends to scan the QR code below or copy the link below to join the game!"
     }
 }
 String.prototype.format = function() {
@@ -39,6 +64,7 @@ String.prototype.format = function() {
     return formatted;
 };
 let lang = navigator.language
+lang = languages[lang] ? lang : "en-US"
 function i18n(key, ...obj) {
     return languages[lang][key].format(obj)
 }

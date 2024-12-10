@@ -181,7 +181,7 @@ function play_sound(name) {
     let audio
     if (!sounds[name]) {
         audio = document.createElement("AUDIO")
-        audio.src = "./res/" + name + ".mp3"
+        audio.src = "./res/" + name + ".ogg"
         sounds[name] = audio
     } else {
         audio = sounds[name]

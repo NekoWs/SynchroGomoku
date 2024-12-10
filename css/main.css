@@ -1,5 +1,5 @@
 :root {
-    --var-background: #cddbf1;
+    --var-background: linear-gradient(90deg, #dae8ff, #e6daff);
     --var-alert-background: #f6fbff;
     --var-text-color: #7e00ff;
     --var-input-outline-color: #7e00ff;

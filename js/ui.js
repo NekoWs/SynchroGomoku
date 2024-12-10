@@ -9,7 +9,7 @@ HTMLElement.prototype.$ = function (selectors) {
     return this.querySelector(selectors)
 }
 
-function alert(content, title="Info", close=(()=>{})) {
+function alert(content, title=i18n("notice"), close=(()=>{})) {
     const clone = alert_clone.cloneNode(true)
     clone.$(".input-box").remove()
     clone.$(".button-box").remove()
@@ -25,7 +25,7 @@ function alert(content, title="Info", close=(()=>{})) {
     document.body.appendChild(clone)
     setTimeout(() => {
         clone.classList.add("show")
-    }, 1)
+    }, 10)
 }
 
 async function prompt(title, content, placeholder="", submit=((_) => { return true}), closeable=true) {
@@ -68,7 +68,7 @@ async function prompt(title, content, placeholder="", submit=((_) => { return tr
     document.body.appendChild(clone)
     setTimeout(() => {
         clone.classList.add("show")
-    }, 1)
+    }, 10)
     return await promise
 }
 
@@ -101,6 +101,6 @@ async function confirm(title, content) {
     document.body.appendChild(clone)
     setTimeout(() => {
         clone.classList.add("show")
-    }, 1)
+    }, 10)
     return promise
 }

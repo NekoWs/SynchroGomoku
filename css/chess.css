@@ -1,0 +1,160 @@
+:root {
+    --var-chess-width-height: 40px;
+    --var-chess-offset: -18px;
+    --var-chess-line-color: #7e01ff;
+    --var-chess-outline-width: 4px;
+    --var-chess-inline-width: 2px;
+    --p1-chess-color: black;
+    --p2-chess-color: white;
+    --p1-pre-chess-color: #000000cf;
+    --p2-pre-chess-color: #ffffffcf;
+    --last-place-color: red;
+}
+
+.chess-index {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 0;
+    margin-top: 20px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.chess-col {
+    display: block;
+}
+
+.chess-col .chess-box.only-click::before {
+    border: none !important;
+}
+
+.chess-col.only-click .chess-box::before {
+    border: none !important;
+}
+
+.chess-col .chess-box.first::before {
+    border-left: var(--var-chess-outline-width) solid var(--var-chess-line-color);
+}
+
+.chess-col.first .chess-box.first::before {
+    border-left: var(--var-chess-outline-width) solid var(--var-chess-line-color);
+}
+
+.chess-col.first .chess-box::before {
+    border-top: var(--var-chess-outline-width) solid var(--var-chess-line-color);
+}
+
+.chess-col.last .chess-box::before {
+    border-bottom: var(--var-chess-outline-width) solid var(--var-chess-line-color);
+}
+
+.chess-col .chess-box:last-child::before {
+    border-right: var(--var-chess-outline-width) solid var(--var-chess-line-color);
+}
+
+.chess-col.first .chess-box:last-child::before {
+    border-radius: 0 10px 0 0;
+}
+
+.chess-col.first .chess-box.first::before {
+    border-radius: 10px 0 0 0;
+}
+
+.chess-col.last .chess-box:last-child::before {
+    border-radius: 0 0 10px 0;
+}
+
+.chess-col.last .chess-box.first::before {
+    border-radius: 0 0 0 10px;
+}
+
+.chess-col .chess-box::before {
+    content: '';
+    display: inline-block;
+    width: var(--var-chess-width-height);
+    height: var(--var-chess-width-height);
+    position: absolute;
+    border: var(--var-chess-inline-width) solid var(--var-chess-line-color);
+    border-left: none;
+    border-top: none;
+    left: var(--var-chess-offset);
+    top: var(--var-chess-offset);
+    pointer-events: none;
+}
+
+.chess-col .chess-box {
+    display: inline-flex;
+    content: '';
+    width: var(--var-chess-width-height);
+    height: var(--var-chess-width-height);
+    position: relative;
+    justify-content: center;
+}
+
+.chess-col .chess-box::after {
+    content: '';
+    display: inline-block;
+    width: var(--var-chess-width-height);
+    height: var(--var-chess-width-height);
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.chess-col .chess-box.p1::after {
+    background: var(--p1-chess-color);
+}
+
+.chess-col .chess-box.p2::after {
+    background: var(--p2-chess-color);
+}
+
+.chess-col .chess-box.p1-pre::after {
+    background: var(--p1-pre-chess-color);
+}
+
+.chess-col .chess-box.p2-pre::after {
+    background: var(--p2-pre-chess-color);
+}
+
+.chess-col .chess-box.strike::after, .chess-col .chess-box.banned::after {
+    border: 4px solid var(--var-chess-line-color);
+    background: var(--var-background);
+}
+
+.chess-col .chess-box.strike > .middle, .chess-col .chess-box.banned > .middle {
+    position: absolute;
+    width: calc(100% - 4px);
+    height: 4px;
+    background: var(--var-chess-line-color);
+    transform: rotate(45deg);
+    top: 50%;
+    left: 3px;
+    z-index: 2;
+}
+
+.chess-col .chess-box.strike.last > .middle {
+    background: var(--last-place-color);
+}
+
+.chess-col .chess-box.strike.last::after {
+    border-color: var(--last-place-color);
+}
+
+.chess-col .chess-box.last:not(.strike) > .middle::before, .chess-col .chess-box.last:not(.strike) > .middle::after {
+    position: absolute;
+    content: '';
+    width: 50%;
+    height: 4px;
+    background: linear-gradient( to right, var(--last-place-color) 0%, var(--last-place-color) 35%, transparent 35%, transparent 65%, var(--last-place-color) 65%, var(--last-place-color) 100% );
+    top: calc(50% - 2px);
+    left: calc(50% /2);
+    z-index: 2;
+}
+
+.chess-col .chess-box.last > .middle::after {
+    transform: rotate(90deg);
+}

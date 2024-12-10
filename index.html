@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8"/>
     <title>Synchro Gomoku</title>
+    <link rel="stylesheet" href="css/chess.css"/>
     <link rel="stylesheet" href="css/main.css"/>
     <meta name="viewport" content="width=device-width"/>
 </head>
 <body>
-<div class="index-box">
+<div class="index-box" id="index-box">
     <div class="room-info">
+        <i18n key="now-in"></i18n>
         <span id="room-id"></span>
         <button class="btn join-btn" id="join">+</button>
-        <button class="btn restart" id="reset"><?xml version="1.0" encoding="UTF-8"?>
+        <button class="btn restart" id="reset">
+            <?xml version="1.0" encoding="UTF-8"?>
             <svg width="15" height="15" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M42 8V24" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M6 24L6 40" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M42 24C42 14.0589 33.9411 6 24 6C18.9145 6 14.3216 8.10896 11.0481 11.5M6 24C6 33.9411 14.0589 42 24 42C28.8556 42 33.2622 40.0774 36.5 36.9519"
                       stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button class="btn leave-btn" id="leave">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.9917 6H6V42H24" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M33 33L42 24L33 15" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 23.9917H42" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
         <button class="btn replay" id="replay"><?xml version="1.0" encoding="UTF-8"?>
@@ -28,7 +39,9 @@
         </button>
     </div>
     <div class="strike-box">
+        <i18n key="strike-before"></i18n>
         <span id="strike-count">0</span>
+        <i18n key="strike-after"></i18n>
     </div>
     <div class="players-box">
         <div class="player p1">
@@ -47,7 +60,11 @@
         </div>
     </div>
     <button id="pass-btn" class="btn pass-btn">PASS</button>
-    <div class="chess-main" id="chess-main">
+    <div class="chess-main" id="chess-main"></div>
+    <div class="invite-main">
+        <i18n key="invite-title"></i18n>
+        <div id="invite-qrcode"></div>
+        <a id="invite-link"></a>
     </div>
 </div>
 <div class="alert window" id="alert">
@@ -65,6 +82,9 @@
         </label>
     </div>
 </div>
+<div class="icp">浙ICP备2024116396号</div>
+<script type="text/javascript" src="js/qrcode.min.js"></script>
+<script type="text/javascript" src="js/i18n.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
 <script type="text/javascript" src="js/service.js"></script>
 <script type="text/javascript" src="js/chess.js"></script>

@@ -1,6 +1,7 @@
-Object.prototype.clone = function() {
+Object.prototype.clone = function () {
     return JSON.parse(JSON.stringify(this))
 }
+
 class Chess {
     chess = []
     backup = []
@@ -11,7 +12,7 @@ class Chess {
         this.reset(true)
     }
 
-    reset(deep=false) {
+    reset(deep = false) {
         if (deep) {
             this.size = 5
         }
@@ -32,7 +33,7 @@ class Chess {
 
     extend() {
         let line = []
-        for (let i = 0; i < this.size; i ++) {
+        for (let i = 0; i < this.size; i++) {
             this.chess[i].push(-1)
             this.backup[i].push(-1)
             this.chess[i].unshift(-1)
@@ -139,11 +140,17 @@ class Chess {
     }
 
     click(row, col, data) {
-        if (over) {
+        if (over || replaying) {
+            let o = over
             chess.reset(true)
             resetOperate(false)
+            if (o) {
+                started = true
+            }
             updateStatus()
-            started = true
+            if (replaying) {
+                stopReplay()
+            }
             return
         }
         if (this.empty && row === 2 && col === 2) {
@@ -175,5 +182,6 @@ class Chess {
         this.update()
     }
 }
+
 let main = document.getElementById("chess-main")
 let chess = new Chess(main)

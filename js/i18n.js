@@ -65,6 +65,7 @@ String.prototype.format = function() {
 };
 let lang = navigator.language
 lang = languages[lang] ? lang : "en-US"
+document.documentElement.lang = lang
 function i18n(key, ...obj) {
     return languages[lang][key].format(obj)
 }

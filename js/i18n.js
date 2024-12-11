@@ -44,7 +44,7 @@ let languages = {
         "already-placed": "你已经落子过了！",
         "another-placed": "对方已落子",
         "learn-title": "教程",
-        "learn-content": "嘿！看起来你是第一次玩《同步五子棋》，是否要开始规则介绍呢？",
+        "learn-content": "嘿！看起来你是第一次玩《同步五子棋》，是否要开始教程呢？",
         "game-rule": "游戏规则",
         "game-tips": [
             "下面先介绍该游戏的规则：",

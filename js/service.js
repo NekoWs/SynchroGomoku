@@ -286,7 +286,7 @@ function connect() {
                             chess.chess[row][col] = chess_color + 2
                         }
                     }
-                    if ($_GET["room"]) {
+                    if ($_GET["room"] && room !== $_GET["room"]) {
                         join_room($_GET["room"])
                     }
                     updateStatus()

@@ -209,6 +209,7 @@ html, body {
     border-radius: 8px;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 10px #00000010;
 }
 
 .window .submit-btn {
@@ -329,7 +330,7 @@ html, body {
 
 #invite-link {
     margin-top: 15px;
-    background: #fff;
+    background: var(--var-chess-background-color);
     padding: 5px 10px;
     border-radius: 10px;
     box-shadow: #00000010 0 0 15px;
@@ -339,4 +340,10 @@ html, body {
 
 .room-info i18n {
     white-space: nowrap;
+}
+
+.chess-index {
+    background: var(--var-chess-background-color);
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000010;
 }

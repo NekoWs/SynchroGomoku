@@ -9,6 +9,7 @@
     --p1-pre-chess-color: #000000cf;
     --p2-pre-chess-color: #ffffffcf;
     --last-place-color: red;
+    --var-chess-background-color: #fff;
 }
 
 .chess-index {
@@ -122,7 +123,7 @@
 
 .chess-col .chess-box.strike::after, .chess-col .chess-box.banned::after {
     border: 4px solid var(--var-chess-line-color);
-    background: var(--var-background);
+    background: var(--var-chess-background-color);
 }
 
 .chess-col .chess-box.strike > .middle, .chess-col .chess-box.banned > .middle {

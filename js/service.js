@@ -230,7 +230,7 @@ function connect() {
             }
             prompt(i18n("welcome"), i18n("input-name"), storageName || "", name => {
                 if (!name) return false
-                return name.match(/^[0-9a-z_]{3,10}$/i)
+                return name.match(/^[a-zA-Z0-9_\u4e00-\u9fa5]{2,10}$/)
             }, false).then(name => {
                 if (name && typeof name == 'string') {
                     localStorage.setItem("name", name)
@@ -456,7 +456,8 @@ function join_room(id) {
 
 id("join").onclick = () => {
     prompt(i18n("join-title"), i18n("join-message"), "", value => {
-        return !!value
+        if (!value) return false
+        return value.match(/^[0-9]{6}$/g)
     }).then(id => {
         if (!id) {
             return

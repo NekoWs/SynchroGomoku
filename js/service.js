@@ -21,6 +21,7 @@ const $_GET = loadSearch(search);
 let handlers = []
 
 function send(ws, params) {
+    if (learning) return new Promise(() => {})
     const handler = handlers.length
     ws.send(JSON.stringify({"handler": handler, ...params}))
     return new Promise((resolve, reject) => {
@@ -398,7 +399,12 @@ function connect() {
     }
 }
 
-connect()
+let visited = localStorage.getItem("visited")
+if (visited) {
+    connect()
+} else {
+    startLearning()
+}
 
 function updateStatus() {
     p1_name.innerText = status[0]
@@ -455,6 +461,7 @@ function join_room(id) {
 }
 
 id("join").onclick = () => {
+    if (learning) return
     prompt(i18n("join-title"), i18n("join-message"), "", value => {
         if (!value) return false
         return value.match(/^[0-9]{6}$/g)
@@ -467,10 +474,12 @@ id("join").onclick = () => {
 }
 
 id("pass-btn").onclick = () => {
+    if (learning) return
     chess.click(-1, -1, -1)
 }
 
 id("reset").onclick = () => {
+    if (learning) return
     confirm(i18n("reset"), i18n("reset-message")).then(bool => {
         if (!bool) return
         send(ws, {"mode": "reset"}).then(r => {
@@ -486,6 +495,7 @@ id("reset").onclick = () => {
 }
 
 id("leave").onclick = () => {
+    if (learning) return
     confirm(i18n("warn"), i18n("leave-message")).then(bool => {
         if (!bool) return
         send(ws, {"mode": "leave"}).then(r => {
@@ -502,6 +512,7 @@ id("leave").onclick = () => {
 }
 
 id("replay").onclick = () => {
+    if (learning) return
     prompt("Replay", "Please input play data: ").then(s => {
         if (!s) return
         let data

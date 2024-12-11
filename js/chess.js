@@ -159,7 +159,7 @@ class Chess {
         if (data !== -1) {
             return
         }
-        if (!started) {
+        if (!started || learning) {
             return
         }
         if (pre_place.length !== 0) {

@@ -3,6 +3,7 @@ function id(i) {
 }
 
 const alert_clone = id("alert").cloneNode(true)
+const learning_mask = id("learning-mask")
 id("alert").remove()
 
 HTMLElement.prototype.$ = function (selectors) {
@@ -20,12 +21,16 @@ function alert(content, title=i18n("notice"), close=(()=>{})) {
             clone.remove()
         }, 300)
     }
-    clone.$(".title").innerText = title
+    let t = clone.$(".title")
+    t.innerText = title.replaceAll("\n", "\\n")
+    let text = t.innerText
+    t.innerHTML = text.replaceAll("\\n", "<br/>")
     clone.$(".content").innerText = content
     document.body.appendChild(clone)
     setTimeout(() => {
         clone.classList.add("show")
     }, 10)
+    return clone
 }
 
 async function prompt(title, content, placeholder="", submit=((_) => { return true}), closeable=true) {
@@ -102,5 +107,56 @@ async function confirm(title, content) {
     setTimeout(() => {
         clone.classList.add("show")
     }, 10)
+    return promise
+}
+
+function syncAlert(content, title=i18n("notice")) {
+    let resolve
+    let promise = new Promise((r) => {
+        resolve = r
+    })
+    alert(content, title, () => {
+        resolve()
+    })
+    return promise
+}
+
+function showTips(target, content, outline=true) {
+    learning_mask.classList.add("show")
+    target.classList.add("highlight")
+    target.classList.toggle("no-outline", !outline)
+    let resolve
+    let promise = new Promise(r => {
+        resolve = r
+    })
+    let w = alert("", content, () => {
+        learning_mask.classList.remove("show")
+        target.classList.add("closing")
+        setTimeout(() => {
+            target.classList.remove("highlight")
+            target.classList.remove("no-outline")
+            target.classList.remove("closing")
+            w.classList.remove("tips")
+        }, 201)
+        resolve()
+    })
+    w.classList.add("tips")
+    let tips = w.querySelector(".main")
+    let max_width = window.innerWidth
+    let max_height = window.innerHeight
+    let width = tips.offsetWidth
+    let height = tips.offsetHeight
+    let top = target.offsetTop + target.offsetHeight + 5
+    let left = target.offsetLeft
+    let bottom = max_height - (top + height + 5)
+    left += Math.min(max_width - (left + width + 5), 0)
+    if (bottom < 0) {
+        tips.style.bottom = max_height - target.offsetTop + 5 + "px"
+        tips.style.top = "auto"
+    } else {
+        tips.style.top = top + "px"
+    }
+    tips.style.left = left + "px"
+    tips.style.margin = "unset"
     return promise
 }

@@ -9,6 +9,7 @@
     <link rel="icon" href="favicon.ico" />
 </head>
 <body>
+<div id="learning-mask"></div>
 <div class="index-box" id="index-box">
     <div class="room-info">
         <i18n key="now-in"></i18n>
@@ -44,7 +45,7 @@
         <span id="strike-count">0</span>
         <i18n key="strike-after"></i18n>
     </div>
-    <div class="players-box">
+    <div class="players-box" id="players-box">
         <div class="player p1">
             <div class="name-box">
                 <span class="name" id="p1-name"></span>
@@ -70,8 +71,10 @@
 </div>
 <div class="alert window" id="alert">
     <div class="main">
-        <button class="close-btn"></button>
-        <span class="title"></span>
+        <div class="title-box">
+            <span class="title"></span>
+            <button class="close-btn"></button>
+        </div>
         <span class="content"></span>
         <label class="input-box">
             <input class="input"/>
@@ -83,10 +86,15 @@
         </label>
     </div>
 </div>
-<div class="icp">浙ICP备2024116396号</div>
+<div class="footer">
+    <div class="owner"><a href="https://nekow.work/" target="_blank">NekoW</a></div>
+    <div class="split"></div>
+    <div class="icp">浙ICP备2024116396号</div>
+</div>
 <script type="text/javascript" src="js/qrcode.min.js"></script>
 <script type="text/javascript" src="js/i18n.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
+<script type="text/javascript" src="js/learn.js"></script>
 <script type="text/javascript" src="js/service.js"></script>
 <script type="text/javascript" src="js/chess.js"></script>
 </body>

@@ -42,7 +42,50 @@ let languages = {
         "need-another-player": "需要另一名玩家以开始游戏！",
         "banned-chess": "不允许的落子！",
         "already-placed": "你已经落子过了！",
-        "another-placed": "对方已落子"
+        "another-placed": "对方已落子",
+        "learn-title": "教程",
+        "learn-content": "嘿！看起来你是第一次玩《同步五子棋》，是否要开始规则介绍呢？",
+        "game-rule": "游戏规则",
+        "game-tips": [
+            "下面先介绍该游戏的规则：",
+            "1. 游戏玩法类似五子棋，但双方同时落子，在落子前无法得知对方落子位置",
+            "2. 单独一方练成五子则为胜利",
+            "3. 当双方落子位置相同，则视为「碰撞」",
+            "4. 「碰撞」后的位置此后将无法落子",
+            "5. 玩家可以选择 PASS 跳过本次落子，但若双方同时 PASS，则也视为一次「碰撞」",
+            "6. 棋盘初始大小为 5 × 5，当双方棋子均落于棋盘边缘过，则棋盘向外扩展一圈，最大为 15 × 15",
+            "7. 第一手禁止落于棋盘中心位置"
+        ],
+        "draw-judge-title": "平局判定",
+        "draw-judge": [
+            "当达成以下任意一种情况，且没有玩家单独连成五子时，",
+            "将会根据 PASS 次数判定胜负，若 PASS 次数相同则判定为平局：",
+            "1. 发生 10 次「碰撞」时",
+            "2. 棋盘无可落子位置时",
+            "3. 双方同时连成五子时"
+        ],
+        "your-name": "你的名字",
+        "another-name": "对方",
+        "players-box-tips": [
+            "这是玩家栏，你的名字的左方棋子为你的棋子颜色",
+            "棋子左下角的圆点是 “状态指示器”，分别有四种状态：",
+            "蓝色:自己 粉色:对方 绿色:已落子 灰色:无玩家",
+            "你的名字下面的数字是你的 PASS 次数"
+        ],
+        "join-btn-tips": "加入，即通过房间号来加入一个房间",
+        "reset-btn-tips": "重置，即将对局重置，即将棋盘、双方 PASS 次数、碰撞次数重置",
+        "leave-btn-tips": "退出，即离开当前房间",
+        "replay-btn-tips": "回放，通过将 history 填入实现自动播放，暂未完成",
+        "strike-tips": "碰撞次数，在这里会显示本局的碰撞次数和上限",
+        "pass-btn-tips": "PASS，即跳过本回合并使 PASS 次数 + 1",
+        "room-id-tips": "这个是当前的房间号，每次进入游戏都会为你分配一个房间号",
+        "invite-qrcode-tips": "也可以通过扫描二维码快捷加入游戏！",
+        "player-join-tips": "当另一名玩家加入房间后游戏会自动开始，棋盘则会出现",
+        "chess-tips": [
+            "棋盘，另外，落子机会只有一次，在落子之后不能改变本次落子的位置",
+            "PASS 同理"
+        ],
+        "learning-over": "那么到此，教程就算结束了，接下来开始叫上你的伙伴一起玩吧！"
     },
     "en-US": {
         "welcome": "Welcome!",
@@ -86,6 +129,46 @@ let languages = {
         "banned-chess": "Not allowed chess!",
         "already-placed": "You are already placed in!",
         "another-placed": "Other side placed in!",
+        "learn-title": "Tutorial",
+        "learn-content": "Hey! It looks like this is your first time playing < Synchro Gomoku >. Do you want to start the tutorial?",
+        "game-rule": "Game rule",
+        "game-tips": [
+            "Rules:",
+            "1. Similar to Gomoku; both players move simultaneously without knowing the other's move.",
+            "2. Forming a line of five wins.",
+            "3. Same position results in a 'strike', making it unavailable.",
+            "4. Both PASS simultaneously = 'strike'.",
+            "5. Board starts at 5 × 5, expands to max 15 × 15 when edges are occupied.",
+            "6. First move cannot be at the center."
+        ],
+        "draw-judge-title": "Draw Conditions",
+        "draw-judge": [
+            "Draw occurs if no one forms five in a row and:",
+            "1. 10 collisions.",
+            "2. No available moves.",
+            "3. Both form five simultaneously."
+        ],
+        "your-name": "Your Name",
+        "another-name": "Opponent",
+        "players-box-tips": [
+            "Player box shows your piece color and status:",
+            "Blue: You, Pink: Opponent, Green: Placed, Gray: Empty.",
+            "Number below your name = PASS count."
+        ],
+        "join-btn-tips": "Join a room using a room ID.",
+        "reset-btn-tips": "Reset game (board, PASS, collisions).",
+        "leave-btn-tips": "Leave the room.",
+        "replay-btn-tips": "Replay game history (in progress).",
+        "strike-tips": "Collision count and max limit.",
+        "pass-btn-tips": "PASS to skip a turn (+1 PASS count).",
+        "room-id-tips": "Room ID assigned when entering.",
+        "invite-qrcode-tips": "Join via QR code!",
+        "player-join-tips": "Game starts when another player joins.",
+        "chess-tips": [
+            "Board: Place pieces once, no changes after.",
+            "PASS works the same."
+        ],
+        "learning-over": "Tutorial complete. Invite friends and play!"
     }
 }
 String.prototype.format = function() {
@@ -99,6 +182,14 @@ let lang = navigator.language
 lang = languages[lang] ? lang : "en-US"
 document.documentElement.lang = lang
 function i18n(key, ...obj) {
+    let lan = languages[lang][key]
+    if (typeof(lan) !== 'string') {
+        let str = ""
+        for (let i of lan) {
+            str += i + "\n"
+        }
+        return str.substring(0, str.lastIndexOf("\n"))
+    }
     return languages[lang][key].format(obj)
 }
 let all = document.getElementsByTagName("i18n")

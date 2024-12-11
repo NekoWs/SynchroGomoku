@@ -3,6 +3,7 @@
     --var-alert-background: #f6fbff;
     --var-text-color: #7e00ff;
     --var-input-outline-color: #7e00ff;
+    --var-highlight-color: #ff5bbd;
     --var-input-outline-color-unfocused: #7e00ff30;
     --var-forward-color: #fff;
 }
@@ -41,7 +42,7 @@ html, body {
     max-width: 550px;
     width: 100%;
     margin: 0 auto;
-    transform: translateX(20px);
+    padding-left: 20px;
 }
 
 .player {
@@ -99,7 +100,8 @@ html, body {
     position: absolute;
     inset: 0;
     margin: auto;
-    width: 350px;
+    width: fit-content;
+    min-width: 350px;
     max-width: 100%;
     height: fit-content;
     background: var(--var-alert-background);
@@ -129,10 +131,16 @@ html, body {
 }
 
 .window.show {
-    transition: backdrop-filter .3s, opacity .3s;
+    transition: backdrop-filter .2s, opacity .2s;
     backdrop-filter: blur(10px);
     opacity: 1;
     pointer-events: auto;
+}
+
+.window.show.tips {
+    backdrop-filter: blur(0) brightness(0.3);
+    opacity: 1;
+    transition: backdrop-filter .2s, opacity .2s;
 }
 
 .window .input {
@@ -158,9 +166,7 @@ html, body {
 }
 
 .window .close-btn {
-    position: absolute;
-    right: 15px;
-    top: 15px;
+    position: relative;
     width: 20px;
     height: 20px;
     background: transparent;
@@ -286,14 +292,6 @@ html, body {
     margin: 30px auto 0;
 }
 
-.icp {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-}
-
 .index-box .strike-box, .index-box .pass-btn, .index-box .chess-index {
     opacity: 0;
     pointer-events: none;
@@ -342,4 +340,66 @@ html, body {
 
 .room-info i18n {
     white-space: nowrap;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icp {
+    color: #666;
+}
+
+.footer .split {
+    display: inline-block;
+    height: 18px;
+    width: 2px;
+    border-radius: 5px;
+    background: #666;
+    margin: 0 5px;
+}
+
+.owner a {
+    color: var(--var-text-color);
+    text-decoration: none;
+}
+
+.highlight {
+    position: relative;
+    z-index: 1000;
+}
+
+.highlight:after {
+    position: absolute;
+    display: inline-block;
+    inset: 0;
+    content: '';
+    border-radius: 5px;
+    outline: 3px solid var(--var-highlight-color);
+    transition: .2s;
+    background: var(--var-forward-color);
+    opacity: 1;
+    z-index: -1;
+}
+
+.highlight.no-outline:after {
+    background: unset;
+    outline: unset;
+}
+
+.highlight.closing:after {
+    opacity: 0;
+}
+
+.title-box {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.window.tips .title {
+    margin-bottom: 0;
 }

@@ -221,7 +221,7 @@ function connect() {
         ws = new WebSocket("wss://gomoku.cc:4000")
         ws.onopen = () => {
             send(ws, {"mode": "version"}).then(r => {
-                console.log(i18n(r["message"]))
+                console.log(r["message"])
             })
             let storageName = localStorage.getItem("name")
             let storageSession = localStorage.getItem("session")

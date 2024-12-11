@@ -221,7 +221,7 @@ function connect() {
         ws = new WebSocket("wss://gomoku.cc:4000")
         ws.onopen = () => {
             send(ws, {"mode": "version"}).then(r => {
-                console.log(r["message"])
+                console.log(i18n(r["message"]))
             })
             let storageName = localStorage.getItem("name")
             let storageSession = localStorage.getItem("session")
@@ -237,7 +237,7 @@ function connect() {
                 }
                 send(ws, {"mode": "login", "name": name}).then(r => {
                     if (r["code"] !== 200) {
-                        alert(r["message"],i18n("warn"), reconnect)
+                        alert(i18n(r["message"]),i18n("warn"), reconnect)
                         return
                     }
                     resetOperate(true)
@@ -313,7 +313,7 @@ function connect() {
                             return
                         case "offline":
                             logged = false
-                            alert(data["message"], i18n("warn"), reconnect)
+                            alert(i18n(data["message"]), i18n("warn"), reconnect)
                             return
                         case "player-joined":
                             const name = data["name"]
@@ -434,15 +434,17 @@ function updateStatus() {
     let show = started || replaying
     index_box.classList.toggle("started", show)
     index_box.classList.toggle("invite", !show)
-    invite_link.innerText = "https://gomoku.cc/?r=" + room
-    qrcode.makeCode(invite_link.innerText)
+    if (!show) {
+        invite_link.innerText = "https://gomoku.cc/?r=" + room
+        qrcode.makeCode(invite_link.innerText)
+    }
     chess.update()
 }
 
 function join_room(id) {
     send(ws, {"mode": "join", "room": id}).then(r => {
         if (r["code"] !== 200) {
-            alert(r["message"])
+            alert(i18n(r["message"]))
             return
         }
         room = id

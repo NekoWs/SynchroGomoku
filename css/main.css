@@ -305,7 +305,7 @@ html, body {
 
 #invite-qrcode {
     padding: 15px;
-    background: #fff;
+    background: var(--var-chess-background-color);
     border-radius: 10px;
     box-shadow: #00000010 0 0 15px;
 }

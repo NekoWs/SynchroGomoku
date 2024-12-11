@@ -1,6 +1,6 @@
 let languages = {
     "zh-CN": {
-        "welcome": "欢迎",
+        "welcome": "欢迎！",
         "input-name": "请输入你的昵称：",
         "reset": "重置",
         "reset-message": "请确认是否要重置房间？",
@@ -45,7 +45,7 @@ let languages = {
         "another-placed": "对方已落子"
     },
     "en-US": {
-        "welcome": "Welcome",
+        "welcome": "Welcome!",
         "input-name": "Please key in your nickname: ",
         "reset": "Reset",
         "reset-message": "Do you confirm to reset the room?",

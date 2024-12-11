@@ -100,6 +100,7 @@ html, body {
     inset: 0;
     margin: auto;
     width: 350px;
+    max-width: 100%;
     height: fit-content;
     background: var(--var-alert-background);
     padding: 20px 25px;

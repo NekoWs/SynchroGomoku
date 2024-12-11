@@ -4,6 +4,7 @@
     --var-text-color: #7e00ff;
     --var-input-outline-color: #7e00ff;
     --var-input-outline-color-unfocused: #7e00ff30;
+    --var-forward-color: #fff;
 }
 
 *, *:before, *:after {
@@ -330,7 +331,7 @@ html, body {
 
 #invite-link {
     margin-top: 15px;
-    background: var(--var-chess-background-color);
+    background: var(--var-forward-color);
     padding: 5px 10px;
     border-radius: 10px;
     box-shadow: #00000010 0 0 15px;
@@ -340,10 +341,4 @@ html, body {
 
 .room-info i18n {
     white-space: nowrap;
-}
-
-.chess-index {
-    background: var(--var-chess-background-color);
-    border-radius: 10px;
-    box-shadow: 0 0 10px #00000010;
 }

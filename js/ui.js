@@ -3,7 +3,6 @@ function id(i) {
 }
 
 const alert_clone = id("alert").cloneNode(true)
-const learning_mask = id("learning-mask")
 id("alert").remove()
 
 HTMLElement.prototype.$ = function (selectors) {
@@ -122,7 +121,6 @@ function syncAlert(content, title=i18n("notice")) {
 }
 
 function showTips(target, content, outline=true) {
-    learning_mask.classList.add("show")
     target.classList.add("highlight")
     target.classList.toggle("no-outline", !outline)
     let resolve
@@ -130,7 +128,6 @@ function showTips(target, content, outline=true) {
         resolve = r
     })
     let w = alert("", content, () => {
-        learning_mask.classList.remove("show")
         target.classList.add("closing")
         setTimeout(() => {
             target.classList.remove("highlight")

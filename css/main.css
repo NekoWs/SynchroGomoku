@@ -403,3 +403,9 @@ html, body {
 .window.tips .title {
     margin-bottom: 0;
 }
+
+.window.tips .main {
+    margin: unset;
+    max-width: calc(100% - 10px);
+    min-width: auto;
+}

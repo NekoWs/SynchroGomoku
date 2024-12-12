@@ -150,6 +150,7 @@ function showTips(target, content, outline=true) {
     let left = target.offsetLeft
     let bottom = max_height - (top + height + 5)
     left += Math.min(max_width - (left + width + 5), 0)
+    left = Math.max(left, 5)
     if (bottom < 0) {
         tips.style.bottom = max_height - target.offsetTop + 5 + "px"
         tips.style.top = "auto"
@@ -157,6 +158,5 @@ function showTips(target, content, outline=true) {
         tips.style.top = top + "px"
     }
     tips.style.left = left + "px"
-    tips.style.margin = "unset"
     return promise
 }

@@ -173,6 +173,7 @@ html, body {
     border: none;
     outline: none;
     cursor: pointer;
+    margin-left: 20px;
 }
 
 .window .close-btn::before, .window .close-btn::after {

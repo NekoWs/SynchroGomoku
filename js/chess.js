@@ -4,7 +4,6 @@ Object.prototype.clone = function () {
 
 class Chess {
     chess = []
-    backup = []
     size = 5
 
     constructor(element) {
@@ -12,12 +11,17 @@ class Chess {
         this.reset(true)
     }
 
+    /**
+     * 清空当前棋盘所有棋子
+     * @param deep 是否重置棋盘大小
+     */
     reset(deep = false) {
         if (deep) {
             this.size = 5
         }
         this.empty = true
         this.chess = []
+        last_place = []
         for (let i = 0; i < this.size; i++) {
             let col = []
             for (let j = 0; j < this.size; j++) {
@@ -26,25 +30,23 @@ class Chess {
             this.chess.push(col)
         }
         if (deep) {
-            this.backup = JSON.parse(JSON.stringify(this.chess))
             this.init()
         }
     }
 
+    /**
+     * 拓展棋盘，并将棋子进行移动
+     */
     extend() {
         let line = []
         for (let i = 0; i < this.size; i++) {
             this.chess[i].push(-1)
-            this.backup[i].push(-1)
             this.chess[i].unshift(-1)
-            this.backup[i].unshift(-1)
             line.push(-1)
         }
         line.push(-1, -1)
         this.chess.push(line.clone())
-        this.backup.push(line.clone())
         this.chess.unshift(line.clone())
-        this.backup.unshift(line.clone())
         this.size += 2
         this.init()
     }
@@ -98,6 +100,9 @@ class Chess {
         }
     }
 
+    /**
+     * 更新棋盘
+     */
     update() {
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
@@ -106,21 +111,12 @@ class Chess {
                 if (i === 2 && j === 2) {
                     box.classList.toggle("banned", this.empty)
                 }
-                if (this.backup[i][j] === this.chess[i][j]) {
-                    continue
-                }
-                // 强制刷新位置仅执行一次
-                if (this.backup[i][j] === -2) {
-                    this.backup[i][j] = -1
-                }
                 this.empty = false
                 box.classList.remove("p1", "p2", "p1-pre", "p2-pre", "strike", "last")
                 if (last_place.length === 2) {
                     let pl = last_place[0], al = last_place[1]
                     if ((i === pl[0] && j === pl[1]) || (i === al[0] && j === al[1])) {
                         box.classList.add("last")
-                        // 强制让下一次刷新 last_place 位置
-                        this.backup[i][j] = -2
                     }
                 }
                 let chessBox = ""
@@ -144,12 +140,36 @@ class Chess {
                 if (chessBox !== "") {
                     box.classList.add(chessBox)
                 }
-                // -2：强制刷新位置
-                if (this.backup[i][j] !== -2) {
-                    this.backup[i][j] = this.chess[i][j]
-                }
             }
         }
+    }
+
+    /**
+     * 逐个动画将棋子移除
+     * @return {number} 动画播放完毕的延迟时间 (ms)
+     */
+    animationReset() {
+        let boxes = []
+        for (let i = 0; i < this.size; i++) {
+            for (let j = 0; j < this.size; j++) {
+                if (this.chess[i][j] === -1) {
+                    continue
+                }
+                let box = this.boxes[i][j]
+                boxes.push(box)
+            }
+        }
+        let delay = 0
+        for (let box of boxes) {
+            setTimeout(() => {
+                setTimeout(() => {
+                    box.classList.remove("p1", "p2", "p1-pre", "p2-pre", "strike", "last")
+                }, 200)
+                box.classList.add("closing")
+            }, delay)
+            delay += 20
+        }
+        return delay
     }
 
     /**
@@ -162,7 +182,10 @@ class Chess {
         // 游戏结束或回放中点击棋盘
         if (over || replaying) {
             let o = over
-            chess.reset(true)
+            let delay = this.animationReset()
+            setTimeout(() => {
+                chess.reset(true)
+            }, delay)
             resetOperate(false)
             if (o) {
                 started = true

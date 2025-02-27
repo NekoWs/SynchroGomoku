@@ -95,7 +95,7 @@
     justify-content: center;
 }
 
-.chess-col .chess-box:hover:after {
+.chess-col .chess-box:hover::after {
     background: var(--var-chess-hover-color);
 }
 
@@ -119,6 +119,31 @@
     background: var(--p2-chess-color);
 }
 
+.chess-col .chess-box.p1::after, .chess-col .chess-box.p2::after {
+    animation: chess-scale-in .2s;
+}
+
+.chess-col .chess-box.closing::after {
+    animation: chess-scale-out .2s;
+    transition: background 0s;
+}
+
+/* 此处无法为 middle 添加动画，原因未知 */
+.chess-col .chess-box.strike.closing .middle {
+    transform: rotate(45deg) scale(0.2);
+    opacity: 0;
+}
+
+.chess-col .chess-box.last.closing .middle::before {
+    transform: rotate(90deg) scale(0.2);
+    opacity: 0;
+}
+
+.chess-col .chess-box.last.closing .middle::after {
+    transform: scale(0.2);
+    opacity: 0;
+}
+
 .chess-col .chess-box.p1-pre::after {
     background: var(--p1-pre-chess-color);
 }
@@ -138,9 +163,12 @@
     height: 4px;
     background: var(--var-chess-line-color);
     transform: rotate(45deg);
-    top: 50%;
+    transform-origin: top;
+    top: calc(50% - 1px);
     left: 3px;
     z-index: 2;
+    transition: transform .2s;
+    opacity: 1;
 }
 
 .chess-col .chess-box.strike.last > .middle {
@@ -164,4 +192,28 @@
 
 .chess-col .chess-box.last > .middle::after {
     transform: rotate(90deg);
+}
+
+@keyframes chess-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes chess-scale-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.2);
+    }
 }

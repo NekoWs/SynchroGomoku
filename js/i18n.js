@@ -22,7 +22,7 @@ let languages = {
         "draw": "游戏结束，平局！ (点击棋盘任意处重置棋盘)",
         "game-over": "游戏结束",
         "win": "游戏结束，{0} 获胜！ (点击棋盘任意处重置棋盘)",
-        "room-rested": "该房间已重置！",
+        "room-rested": "已重置该房间！",
         "cannot-connect": "无法连接至服务器！",
         "error": "错误",
         "no-player": "无玩家",

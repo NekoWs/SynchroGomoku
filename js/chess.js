@@ -109,37 +109,57 @@ class Chess {
                 if (this.backup[i][j] === this.chess[i][j]) {
                     continue
                 }
+                // 强制刷新位置仅执行一次
+                if (this.backup[i][j] === -2) {
+                    this.backup[i][j] = -1
+                }
                 this.empty = false
                 box.classList.remove("p1", "p2", "p1-pre", "p2-pre", "strike", "last")
                 if (last_place.length === 2) {
                     let pl = last_place[0], al = last_place[1]
                     if ((i === pl[0] && j === pl[1]) || (i === al[0] && j === al[1])) {
                         box.classList.add("last")
+                        // 强制让下一次刷新 last_place 位置
+                        this.backup[i][j] = -2
                     }
                 }
+                let chessBox = ""
                 switch (chess) {
                     case 0:
-                        box.classList.add("p1")
-                        continue
+                        chessBox = "p1"
+                        break
                     case 1:
-                        box.classList.add("p2")
-                        continue
+                        chessBox = "p2"
+                        break
                     case 2:
-                        box.classList.add("p1-pre")
-                        continue
+                        chessBox = "p1-pre"
+                        break
                     case 3:
-                        box.classList.add("p2-pre")
-                        continue
+                        chessBox = "p2-pre"
+                        break
                     case 4:
-                        box.classList.add("strike")
-                        continue
+                        chessBox = "strike"
+                        break
                 }
-                this.backup[i][j] = this.chess[i][j]
+                if (chessBox !== "") {
+                    box.classList.add(chessBox)
+                }
+                // -2：强制刷新位置
+                if (this.backup[i][j] !== -2) {
+                    this.backup[i][j] = this.chess[i][j]
+                }
             }
         }
     }
 
+    /**
+     * 棋盘点击事件
+     * @param row 行
+     * @param col 列
+     * @param data 棋盘数据
+     */
     click(row, col, data) {
+        // 游戏结束或回放中点击棋盘
         if (over || replaying) {
             let o = over
             chess.reset(true)
@@ -153,16 +173,19 @@ class Chess {
             }
             return
         }
+        // 第一次落子禁止落子于中心
         if (this.empty && row === 2 && col === 2) {
             return
         }
+        // 已经落子的位置不允许再次落子
         if (data !== -1) {
             return
         }
+        // 未开始游戏或正在进行教程（教程会暂时性将 started 设置为 true）
         if (!started || learning) {
             return
         }
-        if (pre_place.length !== 0) {
+        if (pre_place.length !== 0 && (row === pre_place[0] && col === pre_place[1])) {
             return
         }
         send(ws, {mode: "place", x: row, y: col}).then(r => {
@@ -170,16 +193,41 @@ class Chess {
                 alert(r["message"])
                 return
             }
-            pass = row === -1 && col === -1
-            if (!pass) {
-                this.chess[row][col] = chess_color + 2
+            if (pre_place.length !== 0 && !this.isPass(pre_place)) {
+                this.setChess(pre_place, -1, false)
             }
+            pass = this.isPass([row, col])
             pre_place = [row, col]
             player_placed = true
-            this.update()
+            if (!pass) {
+                this.setChess(pre_place, chess_color + 2)
+            }
             updateStatus()
         })
         this.update()
+    }
+
+    /**
+     * 判断一个 pos 是否为 PASS 操作
+     * @param pos 操作位置
+     * @returns {boolean} 是否为 PASS 操作
+     */
+    isPass(pos) {
+        return pos[0] === -1 && pos[1] === -1
+    }
+
+    /**
+     * 设置棋盘指定位置的棋子
+     * @param pos 位置
+     * @param data 棋子ID
+     * @param update 是否更新棋盘
+     */
+    setChess(pos, data, update=true) {
+        if (pos.length !== 2) throw Error("invalid pos")
+        this.chess[pos[0]][pos[1]] = data
+        if (update) {
+            this.update()
+        }
     }
 }
 

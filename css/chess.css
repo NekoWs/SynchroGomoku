@@ -10,6 +10,7 @@
     --p2-pre-chess-color: #ffffffcf;
     --last-place-color: red;
     --var-chess-background-color: #00000000;
+    --var-chess-hover-color: #00000010;
 }
 
 .chess-index {
@@ -94,6 +95,10 @@
     justify-content: center;
 }
 
+.chess-col .chess-box:hover:after {
+    background: var(--var-chess-hover-color);
+}
+
 .chess-col .chess-box::after {
     content: '';
     display: inline-block;
@@ -103,6 +108,7 @@
     pointer-events: none;
     z-index: 1;
     border-radius: 50%;
+    transition: background .2s;
 }
 
 .chess-col .chess-box.p1::after {
